@@ -104,7 +104,7 @@ fun TaskFlowTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = TaskFlowTypography,
+        typography = AppTypography,
         content = content
     )
 }
