@@ -1,6 +1,5 @@
 package com.example.taskflow.presentation.ui.todos
 
-import TodoItem
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -42,8 +41,10 @@ fun TodosScreen(todoViewModel: TodoViewModel = koinViewModel()) {
                 horizontal = 16.dp
             )
         ) {
-            items(todos.value) {
-                TodoItem(it)
+            items(todos.value, key = { it.id }) {
+                TodoItem(it, onDelete = {
+                    todoViewModel.deleteTodo(it)
+                }, modifier = Modifier.animateItem())
             }
         }
     }

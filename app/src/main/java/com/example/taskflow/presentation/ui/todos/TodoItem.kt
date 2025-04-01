@@ -1,27 +1,67 @@
+package com.example.taskflow.presentation.ui.todos
+
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.taskflow.domain.models.Todo
+import com.example.taskflow.presentation.ui.swipeable_item.ActionItem
+import com.example.taskflow.presentation.ui.swipeable_item.SwipeableItemWithActions
 
 @Composable
-fun TodoItem(todo: Todo) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        shape = RoundedCornerShape(10.dp),
+fun TodoItem(todo: Todo, onDelete: (todo: Todo) -> Unit, modifier: Modifier = Modifier) {
+    var showDeleteDialog by remember { mutableStateOf(false) }
+
+    if (showDeleteDialog) {
+        AlertDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            title = { Text("Delete task?") },
+            confirmButton = {
+                TextButton(onClick = {
+                    showDeleteDialog = false
+                    onDelete(todo)
+                }) {
+                    Text("Delete", color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteDialog = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
+    }
+
+    SwipeableItemWithActions(
+        actions = {
+            ActionItem(
+                onClick = { showDeleteDialog = true },
+                backgroundColor = MaterialTheme.colorScheme.error,
+                icon = Icons.Default.Delete,
+                modifier = Modifier,
+                contentDescription = "Delete todo"
+            )
+        },
+        modifier = modifier.padding(vertical = 8.dp),
     ) {
         Row(
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.surfaceContainer)
+                .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Checkbox(checked = true, onCheckedChange = { })

@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 class TodoRepositoryImpl(private val todoDao: TodoDao) : TodoRepository {
     override fun listenForTodoChanges(): Flow<List<Todo>> = todoDao.listenForTodoChanges()
     override suspend fun addTodo(todo: Todo) = todoDao.insertTodo(todo)
+    override suspend fun deleteTodo(todo: Todo) = todoDao.deleteTodo(todo)
 }
