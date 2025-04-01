@@ -1,4 +1,4 @@
-package com.example.taskflow.presentation.ui.todos
+package com.example.taskflow.presentation.ui.create_todo
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -10,15 +10,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun CreateTodoDialog() {
-    var text = remember { mutableStateOf("") }
+fun CreateTodoDialog(createTodoViewModel: CreateTodoViewModel = koinViewModel()) {
+    val todoTitle = createTodoViewModel.todoTitle
 
     Column(
         Modifier
@@ -29,14 +28,20 @@ fun CreateTodoDialog() {
     ) {
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = text.value,
-            onValueChange = { text.value = it },
+            value = todoTitle.value,
+            onValueChange = { todoTitle.value = it },
             label = { Text("Enter a task") }
         )
 
-        Button(onClick = {}, modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp)) {
+        Button(
+            onClick = {
+                createTodoViewModel.addTodo()
+                todoTitle.value = ""
+            }, modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp),
+            enabled = todoTitle.value.isNotEmpty()
+        ) {
             Text("Add")
         }
     }

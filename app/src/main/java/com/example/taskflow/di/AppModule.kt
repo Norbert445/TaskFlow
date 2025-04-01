@@ -6,7 +6,9 @@ import com.example.taskflow.data.database.DATABASE_NAME
 import com.example.taskflow.data.database.dao.TodoDao
 import com.example.taskflow.data.repository.todo.TodoRepository
 import com.example.taskflow.data.repository.todo.TodoRepositoryImpl
+import com.example.taskflow.domain.usecase.AddTodoUseCase
 import com.example.taskflow.domain.usecase.ListenForTodoChangesUseCase
+import com.example.taskflow.presentation.ui.create_todo.CreateTodoViewModel
 import com.example.taskflow.presentation.ui.todos.TodoViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -24,6 +26,8 @@ val appModule = module {
     single<TodoRepository> { TodoRepositoryImpl(get()) }
 
     factory { ListenForTodoChangesUseCase(get()) }
+    factory { AddTodoUseCase(get()) }
 
     viewModel { TodoViewModel(get()) }
+    viewModel { CreateTodoViewModel(get()) }
 }

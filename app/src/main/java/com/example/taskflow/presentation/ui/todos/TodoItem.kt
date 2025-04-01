@@ -10,9 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.taskflow.domain.models.Todo
 
 @Composable
-fun TodoItem() {
+fun TodoItem(todo: Todo) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -25,7 +26,7 @@ fun TodoItem() {
         ) {
             Checkbox(checked = true, onCheckedChange = { })
             Text(
-                "Todo",
+                todo.title,
                 color = MaterialTheme.colorScheme.onSurface
             )
         }

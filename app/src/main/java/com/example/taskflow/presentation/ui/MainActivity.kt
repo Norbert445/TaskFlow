@@ -20,7 +20,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import com.example.taskflow.presentation.ui.theme.TaskFlowTheme
-import com.example.taskflow.presentation.ui.todos.CreateTodoDialog
+import com.example.taskflow.presentation.ui.create_todo.CreateTodoDialog
 import com.example.taskflow.presentation.ui.todos.TodosScreen
 import kotlinx.serialization.Serializable
 

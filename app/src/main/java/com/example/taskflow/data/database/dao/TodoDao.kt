@@ -3,6 +3,7 @@ package com.example.taskflow.data.database.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.taskflow.domain.models.Todo
 import kotlinx.coroutines.flow.Flow
@@ -12,9 +13,9 @@ interface TodoDao {
     @Query("SELECT * FROM todo")
     fun listenForTodoChanges(): Flow<List<Todo>>
 
-    @Insert
-    fun insertTodo(todo: Todo)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTodo(todo: Todo)
 
     @Delete
-    fun deleteTodo(todo: Todo)
+    suspend fun deleteTodo(todo: Todo)
 }
