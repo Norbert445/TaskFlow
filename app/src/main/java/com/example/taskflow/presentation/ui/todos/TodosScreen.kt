@@ -136,7 +136,6 @@ fun TodosScreen(
                                     top = if (incompleteTodos.isNotEmpty()) 16.dp else 8.dp,
                                     bottom = 8.dp
                                 )
-                                .animateItem()
                         )
                     }
 
