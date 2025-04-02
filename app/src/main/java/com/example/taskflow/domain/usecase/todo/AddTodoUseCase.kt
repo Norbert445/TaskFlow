@@ -1,7 +1,7 @@
 package com.example.taskflow.domain.usecase.todo
 
 import com.example.taskflow.data.repository.todo.TodoRepository
-import com.example.taskflow.domain.models.Todo
+import com.example.taskflow.domain.model.Todo
 
 class AddTodoUseCase(private val todoRepository: TodoRepository) {
 

@@ -1,7 +1,7 @@
 package com.example.taskflow.data.repository.todo
 
 import com.example.taskflow.data.database.dao.TodoDao
-import com.example.taskflow.domain.models.Todo
+import com.example.taskflow.domain.model.Todo
 import kotlinx.coroutines.flow.Flow
 
 class TodoRepositoryImpl(private val todoDao: TodoDao) : TodoRepository {

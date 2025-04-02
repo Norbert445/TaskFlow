@@ -3,7 +3,7 @@ package com.example.taskflow.data.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.taskflow.data.database.dao.TodoDao
-import com.example.taskflow.domain.models.Todo
+import com.example.taskflow.domain.model.Todo
 
 const val DATABASE_NAME = "APP_DATABASE"
 

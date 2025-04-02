@@ -3,7 +3,7 @@ package com.example.taskflow.presentation.ui.todos
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.taskflow.domain.models.Todo
+import com.example.taskflow.domain.model.Todo
 import com.example.taskflow.domain.usecase.todo.DeleteTodoUseCase
 import com.example.taskflow.domain.usecase.todo.GetTodosUseCase
 import com.example.taskflow.domain.usecase.todo.ToggleTodoUseCase

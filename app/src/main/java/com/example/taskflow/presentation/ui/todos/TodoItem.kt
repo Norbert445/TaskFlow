@@ -21,7 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import com.example.taskflow.domain.models.Todo
+import com.example.taskflow.domain.model.Todo
 import com.example.taskflow.presentation.ui.swipeable_item.ActionItem
 import com.example.taskflow.presentation.ui.swipeable_item.SwipeableItemWithActions
 

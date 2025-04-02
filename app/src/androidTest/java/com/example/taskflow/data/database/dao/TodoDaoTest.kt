@@ -3,7 +3,7 @@ package com.example.taskflow.data.database.dao
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.example.taskflow.data.database.AppDatabase
-import com.example.taskflow.domain.models.Todo
+import com.example.taskflow.domain.model.Todo
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest

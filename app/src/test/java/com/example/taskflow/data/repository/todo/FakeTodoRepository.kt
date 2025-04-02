@@ -1,6 +1,6 @@
 package com.example.taskflow.data.repository.todo
 
-import com.example.taskflow.domain.models.Todo
+import com.example.taskflow.domain.model.Todo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

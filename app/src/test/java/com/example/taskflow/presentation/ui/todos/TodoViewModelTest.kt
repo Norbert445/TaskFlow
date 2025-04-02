@@ -3,7 +3,7 @@ package com.example.taskflow.presentation.ui.todos
 import com.example.taskflow.MainDispatcherRule
 import com.example.taskflow.data.repository.todo.FakeTodoRepository
 import com.example.taskflow.data.repository.todo.TodoRepository
-import com.example.taskflow.domain.models.Todo
+import com.example.taskflow.domain.model.Todo
 import com.example.taskflow.domain.usecase.todo.DeleteTodoUseCase
 import com.example.taskflow.domain.usecase.todo.GetTodosUseCase
 import com.example.taskflow.domain.usecase.todo.ToggleTodoUseCase
