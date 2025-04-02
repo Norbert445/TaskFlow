@@ -9,6 +9,7 @@ import com.example.taskflow.data.repository.todo.TodoRepositoryImpl
 import com.example.taskflow.domain.usecase.AddTodoUseCase
 import com.example.taskflow.domain.usecase.DeleteTodoUseCase
 import com.example.taskflow.domain.usecase.ListenForTodoChangesUseCase
+import com.example.taskflow.domain.usecase.ToggleTodoUseCase
 import com.example.taskflow.presentation.ui.create_todo.CreateTodoViewModel
 import com.example.taskflow.presentation.ui.todos.TodoViewModel
 import org.koin.core.module.dsl.viewModel
@@ -28,7 +29,8 @@ val appModule = module {
     factory { ListenForTodoChangesUseCase(get()) }
     factory { AddTodoUseCase(get()) }
     factory { DeleteTodoUseCase(get()) }
+    factory { ToggleTodoUseCase(get()) }
 
-    viewModel { TodoViewModel(get(), get()) }
+    viewModel { TodoViewModel(get(), get(), get()) }
     viewModel { CreateTodoViewModel(get()) }
 }

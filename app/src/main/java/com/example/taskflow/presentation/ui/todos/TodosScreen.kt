@@ -37,23 +37,53 @@ fun TodosScreen(todoViewModel: TodoViewModel = koinViewModel()) {
     } else {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(
-                horizontal = 16.dp
-            )
+            contentPadding = PaddingValues(horizontal = 16.dp)
         ) {
             item {
                 Text(
-                    "Get Things Done",
+                    "My Todo List",
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.headlineSmall,
                     modifier = Modifier.padding(top = 24.dp, bottom = 12.dp)
                 )
             }
 
-            items(todos.value, key = { it.id }) {
-                TodoItem(it, onDelete = {
-                    todoViewModel.deleteTodo(it)
-                }, modifier = Modifier.animateItem())
+            val (incompleteTodos, completedTodos) = todos.value.partition { !it.isDone }
+
+            if (incompleteTodos.isNotEmpty()) {
+                item {
+                    Text(
+                        "Tasks to Do",
+                        style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.primary),
+                        modifier = Modifier.padding(vertical = 8.dp)
+                    )
+                }
+
+                items(incompleteTodos, key = { it.id }) {
+                    TodoItem(it, onDelete = {
+                        todoViewModel.deleteTodo(it)
+                    }, onToggle = { todo, isDone ->
+                        todoViewModel.toggleTodo(todo, isDone)
+                    }, modifier = Modifier.animateItem())
+                }
+            }
+
+            if (completedTodos.isNotEmpty()) {
+                item {
+                    Text(
+                        "Completed Tasks",
+                        style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.tertiary),
+                        modifier = Modifier.padding(top = 16.dp, bottom = 8.dp).animateItem()
+                    )
+                }
+
+                items(completedTodos, key = { it.id }) {
+                    TodoItem(it, onDelete = {
+                        todoViewModel.deleteTodo(it)
+                    }, onToggle = { todo, isDone ->
+                        todoViewModel.toggleTodo(todo, isDone)
+                    }, modifier = Modifier.animateItem())
+                }
             }
         }
     }
