@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TodoDao {
     @Query("SELECT * FROM todo ORDER BY isDone ASC, updatedAt DESC")
-    fun listenForTodoChanges(): Flow<List<Todo>>
+    fun getTodos(): Flow<List<Todo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTodo(todo: Todo)

@@ -14,7 +14,7 @@ import com.example.taskflow.data.repository.user_preferences.UserPreferencesRepo
 import com.example.taskflow.data.repository.user_preferences.UserPreferencesRepositoryImpl
 import com.example.taskflow.domain.usecase.todo.AddTodoUseCase
 import com.example.taskflow.domain.usecase.todo.DeleteTodoUseCase
-import com.example.taskflow.domain.usecase.todo.ListenForTodoChangesUseCase
+import com.example.taskflow.domain.usecase.todo.GetTodosUseCase
 import com.example.taskflow.domain.usecase.todo.ToggleTodoUseCase
 import com.example.taskflow.domain.usecase.user_preferences.GetDarkModeUseCase
 import com.example.taskflow.domain.usecase.user_preferences.SetDarkModeUseCase
@@ -41,7 +41,7 @@ val appModule = module {
     single<TodoRepository> { TodoRepositoryImpl(get()) }
     single<UserPreferencesRepository> { UserPreferencesRepositoryImpl(get()) }
 
-    factory { ListenForTodoChangesUseCase(get()) }
+    factory { GetTodosUseCase(get()) }
     factory { AddTodoUseCase(get()) }
     factory { DeleteTodoUseCase(get()) }
     factory { ToggleTodoUseCase(get()) }

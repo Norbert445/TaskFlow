@@ -5,12 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskflow.domain.models.Todo
 import com.example.taskflow.domain.usecase.todo.DeleteTodoUseCase
-import com.example.taskflow.domain.usecase.todo.ListenForTodoChangesUseCase
+import com.example.taskflow.domain.usecase.todo.GetTodosUseCase
 import com.example.taskflow.domain.usecase.todo.ToggleTodoUseCase
 import kotlinx.coroutines.launch
 
 class TodoViewModel(
-    listenForTodoChangesUseCase: ListenForTodoChangesUseCase,
+    getTodosUseCase: GetTodosUseCase,
     private val deleteTodoUseCase: DeleteTodoUseCase,
     private val toggleTodoUseCase: ToggleTodoUseCase
 ) : ViewModel() {
@@ -23,7 +23,7 @@ class TodoViewModel(
 
     init {
         viewModelScope.launch {
-            listenForTodoChangesUseCase().collect {
+            getTodosUseCase().collect {
                 todos.value = it
                 isLoading.value = false
             }
