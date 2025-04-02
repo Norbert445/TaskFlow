@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TaskFlow</string>
+    <string name="todo_list_title">My Todo List</string>
+
+    <string name="tasks_to_do_title">Tasks to Do</string>
+    <string name="tasks_completed_title">Completed tasks</string>
+    <string name="task_input_hint">Enter a task</string>
+    <string name="task_delete_title">Delete</string>
+    <string name="task_add_title">Add</string>
 </resources>

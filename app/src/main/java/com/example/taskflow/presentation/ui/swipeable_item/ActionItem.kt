@@ -20,6 +20,7 @@ fun ActionItem(
     onClick: () -> Unit,
     backgroundColor: Color,
     icon: ImageVector,
+    text: String,
     modifier: Modifier,
     tint: Color = MaterialTheme.colorScheme.background,
     contentDescription: String
@@ -39,7 +40,6 @@ fun ActionItem(
             modifier = Modifier.padding(6.dp)
         )
 
-        Text("Delete", color = tint)
+        Text(text, color = tint)
     }
-
 }

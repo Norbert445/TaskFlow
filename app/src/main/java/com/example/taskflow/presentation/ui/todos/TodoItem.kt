@@ -19,8 +19,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import com.example.taskflow.R
 import com.example.taskflow.domain.model.Todo
 import com.example.taskflow.presentation.ui.swipeable_item.ActionItem
 import com.example.taskflow.presentation.ui.swipeable_item.SwipeableItemWithActions
@@ -60,6 +62,7 @@ fun TodoItem(
                 onClick = { showDeleteDialog = true },
                 backgroundColor = MaterialTheme.colorScheme.errorContainer,
                 icon = Icons.Default.Delete,
+                text = stringResource(R.string.task_delete_title),
                 modifier = Modifier,
                 tint = MaterialTheme.colorScheme.onErrorContainer,
                 contentDescription = "Delete todo"

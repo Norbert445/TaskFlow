@@ -12,7 +12,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.taskflow.R
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -30,7 +32,7 @@ fun CreateTodoDialog(createTodoViewModel: CreateTodoViewModel = koinViewModel())
             modifier = Modifier.fillMaxWidth(),
             value = todoTitle.value,
             onValueChange = { todoTitle.value = it },
-            label = { Text("Enter a task") }
+            label = { Text(stringResource(R.string.task_input_hint)) }
         )
 
         Button(
@@ -41,7 +43,7 @@ fun CreateTodoDialog(createTodoViewModel: CreateTodoViewModel = koinViewModel())
                 .padding(top = 16.dp),
             enabled = todoTitle.value.isNotEmpty()
         ) {
-            Text("Add")
+            Text(stringResource(R.string.task_add_title))
         }
     }
 }
