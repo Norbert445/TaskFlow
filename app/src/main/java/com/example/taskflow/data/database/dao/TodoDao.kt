@@ -10,7 +10,13 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TodoDao {
-    @Query("SELECT * FROM todo ORDER BY isDone ASC, updatedAt DESC")
+    @Query(
+        """
+        SELECT * FROM todo 
+        ORDER BY 
+        CASE WHEN isDone = 0 THEN updatedAt END ASC,
+        CASE WHEN isDone = 1 THEN updatedAt END DESC
+    """)
     fun getTodos(): Flow<List<Todo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

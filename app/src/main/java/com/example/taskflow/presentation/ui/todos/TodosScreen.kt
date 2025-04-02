@@ -107,7 +107,7 @@ fun TodosScreen(
                         )
                     }
 
-                    items(incompleteTodos.reversed(), key = { it.id }) {
+                    items(incompleteTodos, key = { it.id }) {
                         TodoItem(it, onDelete = {
                             todoViewModel.deleteTodo(it)
                         }, onToggle = { todo, isDone ->
