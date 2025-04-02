@@ -30,6 +30,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun TodosScreen(
+    innerPadding: PaddingValues = PaddingValues(),
     todoViewModel: TodoViewModel = koinViewModel(),
     onDarkModeToggle: () -> Unit,
     darkModeEnabled: State<Boolean>
@@ -40,7 +41,11 @@ fun TodosScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 24.dp, end = 16.dp, start = 16.dp),
+                .padding(
+                    top = innerPadding.calculateTopPadding() + 24.dp,
+                    end = 16.dp,
+                    start = 16.dp
+                ),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -94,7 +99,11 @@ fun TodosScreen(
         } else {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(horizontal = 16.dp)
+                contentPadding = PaddingValues(
+                    start = 16.dp,
+                    end = 16.dp,
+                    bottom = innerPadding.calculateBottomPadding()
+                )
             ) {
                 val (incompleteTodos, completedTodos) = todos.value.partition { !it.isDone }
 
