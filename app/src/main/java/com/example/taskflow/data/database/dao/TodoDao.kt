@@ -14,6 +14,7 @@ interface TodoDao {
         """
         SELECT * FROM todo 
         ORDER BY 
+        isDone ASC,
         CASE WHEN isDone = 0 THEN updatedAt END ASC,
         CASE WHEN isDone = 1 THEN updatedAt END DESC
     """)

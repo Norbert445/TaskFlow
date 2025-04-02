@@ -58,9 +58,10 @@ fun TodoItem(
         actions = {
             ActionItem(
                 onClick = { showDeleteDialog = true },
-                backgroundColor = MaterialTheme.colorScheme.error,
+                backgroundColor = MaterialTheme.colorScheme.errorContainer,
                 icon = Icons.Default.Delete,
                 modifier = Modifier,
+                tint = MaterialTheme.colorScheme.onErrorContainer,
                 contentDescription = "Delete todo"
             )
         },

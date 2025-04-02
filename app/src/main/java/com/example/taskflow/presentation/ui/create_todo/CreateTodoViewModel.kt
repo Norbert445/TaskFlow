@@ -12,6 +12,7 @@ class CreateTodoViewModel(val addTodoUseCase: AddTodoUseCase) : ViewModel() {
     fun addTodo() {
         viewModelScope.launch {
             addTodoUseCase(todoTitle.value)
+            todoTitle.value = ""
         }
     }
 }

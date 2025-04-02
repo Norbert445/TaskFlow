@@ -36,7 +36,6 @@ fun CreateTodoDialog(createTodoViewModel: CreateTodoViewModel = koinViewModel())
         Button(
             onClick = {
                 createTodoViewModel.addTodo()
-                todoTitle.value = ""
             }, modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),

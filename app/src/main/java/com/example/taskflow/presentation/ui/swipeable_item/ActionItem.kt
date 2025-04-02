@@ -39,7 +39,7 @@ fun ActionItem(
             modifier = Modifier.padding(6.dp)
         )
 
-        Text("Delete")
+        Text("Delete", color = tint)
     }
 
 }
