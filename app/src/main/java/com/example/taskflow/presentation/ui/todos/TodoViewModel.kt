@@ -7,6 +7,8 @@ import com.example.taskflow.domain.models.Todo
 import com.example.taskflow.domain.usecase.todo.DeleteTodoUseCase
 import com.example.taskflow.domain.usecase.todo.ListenForTodoChangesUseCase
 import com.example.taskflow.domain.usecase.todo.ToggleTodoUseCase
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class TodoViewModel(
@@ -18,10 +20,14 @@ class TodoViewModel(
     var todos = mutableStateOf<List<Todo>>(emptyList())
         private set
 
+    var isLoading = mutableStateOf(true)
+        private set
+
     init {
         viewModelScope.launch {
             listenForTodoChangesUseCase().collect {
                 todos.value = it
+                isLoading.value = false
             }
         }
     }

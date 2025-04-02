@@ -2,6 +2,7 @@ package com.example.taskflow.presentation.ui.todos
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -9,8 +10,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -47,7 +50,6 @@ fun TodosScreen(
                 style = MaterialTheme.typography.headlineSmall,
             )
 
-
             IconButton(onClick = {
                 onDarkModeToggle()
             }) {
@@ -60,6 +62,20 @@ fun TodosScreen(
                     modifier = Modifier.size(24.dp)
                 )
             }
+        }
+
+        if (todoViewModel.isLoading.value) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .width(64.dp)
+                        .padding(bottom = 40.dp),
+                )
+            }
+            return@Column
         }
 
         if (todos.value.isEmpty()) {
@@ -91,7 +107,7 @@ fun TodosScreen(
                         )
                     }
 
-                    items(incompleteTodos, key = { it.id }) {
+                    items(incompleteTodos.reversed(), key = { it.id }) {
                         TodoItem(it, onDelete = {
                             todoViewModel.deleteTodo(it)
                         }, onToggle = { todo, isDone ->
@@ -106,7 +122,10 @@ fun TodosScreen(
                             "Completed Tasks",
                             style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.tertiary),
                             modifier = Modifier
-                                .padding(top = if(incompleteTodos.isNotEmpty()) 16.dp else 8.dp, bottom = 8.dp)
+                                .padding(
+                                    top = if (incompleteTodos.isNotEmpty()) 16.dp else 8.dp,
+                                    bottom = 8.dp
+                                )
                                 .animateItem()
                         )
                     }

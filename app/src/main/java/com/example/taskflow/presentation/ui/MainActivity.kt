@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val themeViewModel: ThemeViewModel by viewModel()
 
-            TaskFlowTheme(darkTheme = themeViewModel.darkModeEnabled.value) {
+            TaskFlowTheme() {
                 val navController = rememberNavController()
 
                 Scaffold(
