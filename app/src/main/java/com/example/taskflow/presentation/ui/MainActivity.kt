@@ -19,10 +19,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
-import com.example.taskflow.presentation.ui.theme.TaskFlowTheme
 import com.example.taskflow.presentation.ui.create_todo.CreateTodoDialog
+import com.example.taskflow.presentation.ui.theme.TaskFlowTheme
 import com.example.taskflow.presentation.ui.todos.TodosScreen
 import kotlinx.serialization.Serializable
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +31,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            TaskFlowTheme {
+            val themeViewModel: ThemeViewModel by viewModel()
+
+            TaskFlowTheme(darkTheme = themeViewModel.darkModeEnabled.value) {
                 val navController = rememberNavController()
 
                 Scaffold(
@@ -51,7 +54,11 @@ class MainActivity : ComponentActivity() {
                             navController = navController,
                             startDestination = Todos
                         ) {
-                            composable<Todos> { TodosScreen() }
+                            composable<Todos> {
+                                TodosScreen(onDarkModeToggle = {
+                                    themeViewModel.toggleDarkMode()
+                                }, darkModeEnabled = themeViewModel.darkModeEnabled)
+                            }
                             dialog<CreateTodo> { CreateTodoDialog() }
                         }
                     }

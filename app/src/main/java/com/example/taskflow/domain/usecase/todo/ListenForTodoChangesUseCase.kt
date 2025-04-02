@@ -1,4 +1,4 @@
-package com.example.taskflow.domain.usecase
+package com.example.taskflow.domain.usecase.todo
 
 import com.example.taskflow.data.repository.todo.TodoRepository
 

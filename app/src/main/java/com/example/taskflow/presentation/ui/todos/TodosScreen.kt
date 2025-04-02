@@ -4,13 +4,19 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -18,8 +24,13 @@ import androidx.compose.ui.unit.dp
 import com.example.taskflow.R
 import org.koin.androidx.compose.koinViewModel
 
+
 @Composable
-fun TodosScreen(todoViewModel: TodoViewModel = koinViewModel()) {
+fun TodosScreen(
+    todoViewModel: TodoViewModel = koinViewModel(),
+    onDarkModeToggle: () -> Unit,
+    darkModeEnabled: State<Boolean>
+) {
     val todos = todoViewModel.todos
 
     if (todos.value.isEmpty()) {
@@ -40,12 +51,32 @@ fun TodosScreen(todoViewModel: TodoViewModel = koinViewModel()) {
             contentPadding = PaddingValues(horizontal = 16.dp)
         ) {
             item {
-                Text(
-                    "My Todo List",
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.headlineSmall,
-                    modifier = Modifier.padding(top = 24.dp, bottom = 12.dp)
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        "My Todo List",
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.headlineSmall,
+                        modifier = Modifier.padding(top = 24.dp, bottom = 12.dp)
+                    )
+
+
+                    IconButton(onClick = {
+                        onDarkModeToggle()
+                    }) {
+                        Icon(
+                            painter = if (darkModeEnabled.value) painterResource(R.drawable.ic_light_mode) else painterResource(
+                                R.drawable.ic_dark_mode
+                            ),
+                            tint = MaterialTheme.colorScheme.primary,
+                            contentDescription = "Toggle light/dark mode",
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
+                }
             }
 
             val (incompleteTodos, completedTodos) = todos.value.partition { !it.isDone }
@@ -54,7 +85,7 @@ fun TodosScreen(todoViewModel: TodoViewModel = koinViewModel()) {
                 item {
                     Text(
                         "Tasks to Do",
-                        style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.primary),
+                        style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.secondary),
                         modifier = Modifier.padding(vertical = 8.dp)
                     )
                 }
@@ -73,7 +104,9 @@ fun TodosScreen(todoViewModel: TodoViewModel = koinViewModel()) {
                     Text(
                         "Completed Tasks",
                         style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.tertiary),
-                        modifier = Modifier.padding(top = 16.dp, bottom = 8.dp).animateItem()
+                        modifier = Modifier
+                            .padding(top = 16.dp, bottom = 8.dp)
+                            .animateItem()
                     )
                 }
 

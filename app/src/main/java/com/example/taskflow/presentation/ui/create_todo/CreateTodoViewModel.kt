@@ -3,7 +3,7 @@ package com.example.taskflow.presentation.ui.create_todo
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.taskflow.domain.usecase.AddTodoUseCase
+import com.example.taskflow.domain.usecase.todo.AddTodoUseCase
 import kotlinx.coroutines.launch
 
 class CreateTodoViewModel(val addTodoUseCase: AddTodoUseCase) : ViewModel() {

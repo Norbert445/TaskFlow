@@ -4,9 +4,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskflow.domain.models.Todo
-import com.example.taskflow.domain.usecase.DeleteTodoUseCase
-import com.example.taskflow.domain.usecase.ListenForTodoChangesUseCase
-import com.example.taskflow.domain.usecase.ToggleTodoUseCase
+import com.example.taskflow.domain.usecase.todo.DeleteTodoUseCase
+import com.example.taskflow.domain.usecase.todo.ListenForTodoChangesUseCase
+import com.example.taskflow.domain.usecase.todo.ToggleTodoUseCase
 import kotlinx.coroutines.launch
 
 class TodoViewModel(
