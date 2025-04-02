@@ -106,7 +106,7 @@ fun TodosScreen(
                             "Completed Tasks",
                             style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.tertiary),
                             modifier = Modifier
-                                .padding(top = 16.dp, bottom = 8.dp)
+                                .padding(top = if(incompleteTodos.isNotEmpty()) 16.dp else 8.dp, bottom = 8.dp)
                                 .animateItem()
                         )
                     }
