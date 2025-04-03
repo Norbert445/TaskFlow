@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material.icons.Icons
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
@@ -27,12 +29,17 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        installSplashScreen()
+
         enableEdgeToEdge()
 
         setContent {
             val themeViewModel: ThemeViewModel by viewModel()
 
-            TaskFlowTheme(darkTheme = themeViewModel.darkModeEnabled.value) {
+            TaskFlowTheme(
+                darkTheme = themeViewModel.darkModeEnabled.value ?: isSystemInDarkTheme()
+            ) {
                 val navController = rememberNavController()
 
                 Scaffold(
@@ -56,15 +63,16 @@ class MainActivity : ComponentActivity() {
                                 innerPadding = innerPadding,
                                 todos = todoViewModel.todos.value,
                                 isLoading = todoViewModel.isLoading.value,
-                                darkModeEnabled = themeViewModel.darkModeEnabled.value,
+                                darkModeEnabled = themeViewModel.darkModeEnabled.value
+                                    ?: isSystemInDarkTheme(),
                                 onToggleTodo = { todo, isDone ->
                                     todoViewModel.toggleTodo(todo, isDone)
                                 },
                                 onDeleteTodo = { todo ->
                                     todoViewModel.deleteTodo(todo)
                                 },
-                                onDarkModeToggle = {
-                                    themeViewModel.toggleDarkMode()
+                                onDarkModeToggle = { darkMode ->
+                                    themeViewModel.toggleDarkMode(darkMode)
                                 })
                         }
                         dialog<CreateTodo> {

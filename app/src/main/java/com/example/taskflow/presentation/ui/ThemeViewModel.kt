@@ -11,7 +11,7 @@ class ThemeViewModel(
     getDarkModeUseCase: GetDarkModeUseCase,
     private val setDarkModeUseCase: SetDarkModeUseCase
 ) : ViewModel() {
-    var darkModeEnabled = mutableStateOf(false)
+    var darkModeEnabled = mutableStateOf<Boolean?>(null)
         private set
 
     init {
@@ -22,9 +22,9 @@ class ThemeViewModel(
         }
     }
 
-    fun toggleDarkMode() {
+    fun toggleDarkMode(darkMode: Boolean) {
         viewModelScope.launch {
-            setDarkModeUseCase(!darkModeEnabled.value)
+            setDarkModeUseCase(darkMode)
         }
     }
 }

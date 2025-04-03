@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
     implementation(libs.androidx.datastore)
+    implementation(libs.core.splashscreen)
     implementation(libs.androidx.viewmodel.testing)
     testImplementation(libs.junit)
     testImplementation(libs.coroutines.test)

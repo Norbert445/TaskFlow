@@ -39,7 +39,7 @@ fun TodosScreen(
     darkModeEnabled: Boolean,
     onToggleTodo: (todo: Todo, isDone: Boolean) -> Unit,
     onDeleteTodo: (todo: Todo) -> Unit,
-    onDarkModeToggle: () -> Unit,
+    onDarkModeToggle: (darkMode: Boolean) -> Unit,
 ) {
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         Row(
@@ -60,7 +60,7 @@ fun TodosScreen(
             )
 
             IconButton(onClick = {
-                onDarkModeToggle()
+                onDarkModeToggle(!darkModeEnabled)
             }) {
                 Icon(
                     painter = if (darkModeEnabled) painterResource(R.drawable.ic_light_mode) else painterResource(
@@ -88,7 +88,9 @@ fun TodosScreen(
 
         if (todos.isEmpty()) {
             Column(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(bottom = Dimens.largePadding + innerPadding.calculateBottomPadding()),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -96,7 +98,10 @@ fun TodosScreen(
                     painter = painterResource(R.drawable.ic_no_data),
                     contentDescription = "No data image",
                 )
-                Text("No todos", color = MaterialTheme.colorScheme.onBackground)
+                Text(
+                    stringResource(R.string.tasks_empty_title),
+                    color = MaterialTheme.colorScheme.onBackground
+                )
             }
         } else {
             LazyColumn(

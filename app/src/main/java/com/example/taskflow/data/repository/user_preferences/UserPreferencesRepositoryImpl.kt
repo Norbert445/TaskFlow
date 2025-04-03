@@ -16,7 +16,7 @@ class UserPreferencesRepositoryImpl(
         }
     }
 
-    override fun getDarkMode(): Flow<Boolean> = dataStore.data.map { it[darkModeKey] == true }
+    override fun getDarkMode(): Flow<Boolean?> = dataStore.data.map { it[darkModeKey] }
 
     companion object {
         private val darkModeKey = booleanPreferencesKey("darkMode")

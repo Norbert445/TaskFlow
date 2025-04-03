@@ -7,4 +7,5 @@
     <string name="task_input_hint">Enter a task</string>
     <string name="task_delete_title">Delete</string>
     <string name="task_add_title">Add</string>
+    <string name="tasks_empty_title">No tasks</string>
 </resources>
