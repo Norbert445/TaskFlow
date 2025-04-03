@@ -18,7 +18,7 @@ TaskFlow is a to-do list app that allows users to add, update, delete, and mark 
 
 1. **Clone the repository using Git**:
    ```bash
-   git clone https://github.com/yourusername/taskflow.git
+   git clone https://github.com/Norbert445/TaskFlow.git
    cd taskflow
    ```
 
@@ -29,7 +29,7 @@ TaskFlow is a to-do list app that allows users to add, update, delete, and mark 
 ### Option 2: Clone Directly in Android Studio
 
 1. **Open Android Studio** and go to **File > New > Project from Version Control**.
-2. **Enter the repository URL**: `https://github.com/yourusername/taskflow.git`.
+2. **Enter the repository URL**: `https://github.com/Norbert445/TaskFlow.git`.
 3. Click **Clone** and wait for the project to sync.
 
 ---
