@@ -53,3 +53,9 @@ You can install the apk from here: https://github.com/Norbert445/TaskFlow/releas
 - **ViewModel** - Manages UI-related data in a lifecycle-conscious way.
 - **Koin** - Dependency Injection Framework.
 - **Coroutines & Flow** - Asynchronous programming for better performance.
+
+---
+
+## Tests
+
+The app includes view model and database tests. You can run the tests from Android Studio by selecting test package and clicking `Run tests`.
