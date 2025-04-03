@@ -43,7 +43,7 @@ TaskFlow is a to-do list app that allows users to add, update, delete, and mark 
 ## Apk
 You can install the apk from here: https://github.com/Norbert445/TaskFlow/releases/tag/1.0
 
---
+---
 
 ## Tech Stack
 
