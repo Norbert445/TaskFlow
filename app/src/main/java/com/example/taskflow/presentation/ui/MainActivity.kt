@@ -12,12 +12,18 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
+import com.example.taskflow.R
 import com.example.taskflow.presentation.ui.create_todo.CreateTodoDialog
 import com.example.taskflow.presentation.ui.create_todo.CreateTodoViewModel
 import com.example.taskflow.presentation.ui.theme.TaskFlowTheme
@@ -51,9 +57,12 @@ class MainActivity : ComponentActivity() {
                 darkTheme = themeViewModel.darkModeEnabled.value ?: isSystemInDarkTheme()
             ) {
                 val navController = rememberNavController()
+                val snackBarHostState = remember { SnackbarHostState() }
+                val scope = rememberCoroutineScope()
 
                 Scaffold(
                     contentWindowInsets = WindowInsets.safeDrawing,
+                    snackbarHost = { SnackbarHost(snackBarHostState) },
                     floatingActionButton = {
                         FloatingActionButton(
                             onClick = {
@@ -68,6 +77,14 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable<Todos> {
                             val todoViewModel: TodoViewModel = koinViewModel()
+
+                            val context = LocalContext.current
+                            ObserveAsEvents(todoViewModel.error) {
+                                scope.launch {
+                                    snackBarHostState.currentSnackbarData?.dismiss()
+                                    snackBarHostState.showSnackbar(context.getString(R.string.error_generic_message))
+                                }
+                            }
 
                             TodosScreen(
                                 innerPadding = innerPadding,
@@ -87,6 +104,16 @@ class MainActivity : ComponentActivity() {
                         }
                         dialog<CreateTodo> {
                             val createTodoViewModel: CreateTodoViewModel = koinViewModel()
+
+                            val context = LocalContext.current
+
+                            ObserveAsEvents(createTodoViewModel.error) {
+                                scope.launch {
+                                    navController.navigateUp()
+                                    snackBarHostState.currentSnackbarData?.dismiss()
+                                    snackBarHostState.showSnackbar(context.getString(R.string.error_generic_message))
+                                }
+                            }
 
                             CreateTodoDialog(createTodoViewModel.todoTitle, onAddTodo = {
                                 createTodoViewModel.addTodo()

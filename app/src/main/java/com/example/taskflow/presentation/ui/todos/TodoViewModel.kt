@@ -7,8 +7,11 @@ import com.example.taskflow.domain.model.Todo
 import com.example.taskflow.domain.usecase.todo.DeleteTodoUseCase
 import com.example.taskflow.domain.usecase.todo.GetTodosUseCase
 import com.example.taskflow.domain.usecase.todo.ToggleTodoUseCase
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber.Forest.d
+import timber.log.Timber.Forest.e
 
 class TodoViewModel(
     getTodosUseCase: GetTodosUseCase,
@@ -22,30 +25,46 @@ class TodoViewModel(
     var isLoading = mutableStateOf(true)
         private set
 
+    private val _error = Channel<Exception>()
+    val error = _error.receiveAsFlow()
+
     init {
         viewModelScope.launch {
-            getTodosUseCase().collect {
-                todos.value = it
-                isLoading.value = false
+            try {
+                getTodosUseCase().collect {
+                    todos.value = it
+                    isLoading.value = false
 
-                d("Got todos: $it")
+                    d("Got todos: $it")
+                }
+            } catch (e: Exception) {
+                _error.send(e)
+                e("Cannot get todos: ${e.localizedMessage}")
             }
         }
     }
 
     fun deleteTodo(todo: Todo) {
         viewModelScope.launch {
-            deleteTodoUseCase(todo)
-
-            d("Deleted todo: $todo")
+            try {
+                deleteTodoUseCase(todo)
+                d("Deleted todo: $todo")
+            } catch (e: Exception) {
+                _error.send(e)
+                e("Cannot delete todo: ${e.localizedMessage}")
+            }
         }
     }
 
     fun toggleTodo(todo: Todo, isDone: Boolean) {
         viewModelScope.launch {
-            toggleTodoUseCase(todo, isDone)
-
-            d("Toggled todo: $todo to isDone: $isDone")
+            try {
+                toggleTodoUseCase(todo, isDone)
+                d("Toggled todo: $todo to isDone: $isDone")
+            } catch (e: Exception) {
+                _error.send(e)
+                e("Cannot toggle todo: ${e.localizedMessage}")
+            }
         }
     }
 }
