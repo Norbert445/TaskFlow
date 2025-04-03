@@ -47,7 +47,7 @@ fun SwipeableItemWithActions(
         modifier = modifier
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
-            .clip(RoundedCornerShape(Dimens.mediumPadding))
+            .clip(RoundedCornerShape(Dimens.mediumBorderRadius))
     ) {
         Row(
             modifier = Modifier

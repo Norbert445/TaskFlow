@@ -29,7 +29,7 @@ fun CreateTodoDialog(
     Column(
         Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(Dimens.mediumPadding))
+            .clip(RoundedCornerShape(Dimens.mediumBorderRadius))
             .background(MaterialTheme.colorScheme.background)
             .padding(Dimens.mediumPadding)
     ) {

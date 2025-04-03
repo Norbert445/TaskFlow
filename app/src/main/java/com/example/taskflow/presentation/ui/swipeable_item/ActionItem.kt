@@ -29,8 +29,7 @@ fun ActionItem(
         modifier = modifier
             .background(backgroundColor)
             .clickable { onClick() }
-            .fillMaxHeight()
-            .padding(end = Dimens.smallPadding),
+            .fillMaxHeight(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(

@@ -9,6 +9,8 @@ object Dimens {
     val largePadding = 32.dp
     val hugePadding = 64.dp
 
+    val mediumBorderRadius = 16.dp
+
     val circularProgressWidth = 64.dp
     val smallIconSize = 24.dp
 }
