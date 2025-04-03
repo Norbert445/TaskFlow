@@ -10,7 +10,8 @@ TaskFlow is a to-do list app that allows users to add, update, delete, and mark 
 ✅ Responsive UI using Material 3  
 
 ## Screenshots
-![Screenshot_20250403_194145](https://github.com/user-attachments/assets/d928d349-8736-476c-8893-a2aa9ab6a7ce)
+![Screenshot_20250403_194145](https://github.com/user-attachments/assets/4e6c5413-568d-4aaf-9119-2424c9b0e352)
+![Screenshot_20250403_195300](https://github.com/user-attachments/assets/1ffbca86-5a83-4c7c-9e01-433648280419)
 
 ## Installation
 ### Option 1: Clone via Terminal (Git)
