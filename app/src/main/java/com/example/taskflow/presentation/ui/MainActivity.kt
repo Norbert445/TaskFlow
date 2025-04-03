@@ -13,6 +13,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
@@ -22,6 +23,8 @@ import com.example.taskflow.presentation.ui.create_todo.CreateTodoViewModel
 import com.example.taskflow.presentation.ui.theme.TaskFlowTheme
 import com.example.taskflow.presentation.ui.todos.TodoViewModel
 import com.example.taskflow.presentation.ui.todos.TodosScreen
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,7 +33,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        installSplashScreen()
+        var keepSplash = true
+        installSplashScreen().apply {
+            setKeepOnScreenCondition { keepSplash }
+        }
+        lifecycleScope.launch {
+            delay(500)
+            keepSplash = false
+        }
 
         enableEdgeToEdge()
 
