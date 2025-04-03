@@ -62,7 +62,7 @@ dependencies {
     implementation(libs.androidx.datastore)
     implementation(libs.core.splashscreen)
     implementation(libs.timber)
-    implementation(libs.androidx.viewmodel.testing)
+    testImplementation(libs.androidx.viewmodel.testing)
     testImplementation(libs.junit)
     testImplementation(libs.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
