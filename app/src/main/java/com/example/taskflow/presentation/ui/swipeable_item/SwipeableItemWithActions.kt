@@ -25,7 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.dp
+import com.example.taskflow.presentation.ui.theme.Dimens
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -47,7 +47,7 @@ fun SwipeableItemWithActions(
         modifier = modifier
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(Dimens.mediumPadding))
     ) {
         Row(
             modifier = Modifier

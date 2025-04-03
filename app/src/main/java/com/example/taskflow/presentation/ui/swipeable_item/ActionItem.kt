@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
+import com.example.taskflow.presentation.ui.theme.Dimens
 
 @Composable
 fun ActionItem(
@@ -30,16 +30,16 @@ fun ActionItem(
             .background(backgroundColor)
             .clickable { onClick() }
             .fillMaxHeight()
-            .padding(end = 8.dp),
+            .padding(end = Dimens.smallPadding),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = icon,
             contentDescription = contentDescription,
             tint = tint,
-            modifier = Modifier.padding(6.dp)
+            modifier = Modifier.padding(end = Dimens.miniPadding, start = Dimens.mediumPadding)
         )
 
-        Text(text, color = tint)
+        Text(text, color = tint, modifier = Modifier.padding(end = Dimens.mediumPadding))
     }
 }

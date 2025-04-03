@@ -21,11 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.unit.dp
 import com.example.taskflow.R
 import com.example.taskflow.domain.model.Todo
 import com.example.taskflow.presentation.ui.swipeable_item.ActionItem
 import com.example.taskflow.presentation.ui.swipeable_item.SwipeableItemWithActions
+import com.example.taskflow.presentation.ui.theme.Dimens
 
 @Composable
 fun TodoItem(
@@ -68,14 +68,14 @@ fun TodoItem(
                 contentDescription = "Delete todo"
             )
         },
-        modifier = modifier.padding(vertical = 8.dp),
+        modifier = modifier.padding(vertical = Dimens.smallPadding),
     ) {
         val animatedBackgroundColor =
             animateColorAsState(if (todo.isDone) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.surfaceContainer)
         Row(
             modifier = Modifier
                 .background(animatedBackgroundColor.value)
-                .padding(8.dp),
+                .padding(Dimens.smallPadding),
             verticalAlignment = Alignment.CenterVertically
         ) {
 

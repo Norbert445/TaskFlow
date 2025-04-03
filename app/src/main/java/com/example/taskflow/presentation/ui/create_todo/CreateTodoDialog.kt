@@ -13,8 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.example.taskflow.R
+import com.example.taskflow.presentation.ui.theme.Dimens
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -24,9 +24,9 @@ fun CreateTodoDialog(createTodoViewModel: CreateTodoViewModel = koinViewModel())
     Column(
         Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(Dimens.mediumPadding))
             .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp)
+            .padding(Dimens.mediumPadding)
     ) {
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
@@ -40,7 +40,7 @@ fun CreateTodoDialog(createTodoViewModel: CreateTodoViewModel = koinViewModel())
                 createTodoViewModel.addTodo()
             }, modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp),
+                .padding(top = Dimens.mediumPadding),
             enabled = todoTitle.value.isNotEmpty()
         ) {
             Text(stringResource(R.string.task_add_title))

@@ -24,8 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.example.taskflow.R
+import com.example.taskflow.presentation.ui.theme.Dimens
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -43,9 +43,9 @@ fun TodosScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    top = innerPadding.calculateTopPadding() + 24.dp,
-                    end = 16.dp,
-                    start = 16.dp
+                    top = innerPadding.calculateTopPadding() + Dimens.largePadding,
+                    end = Dimens.mediumPadding,
+                    start = Dimens.mediumPadding
                 ),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
@@ -65,7 +65,7 @@ fun TodosScreen(
                     ),
                     tint = MaterialTheme.colorScheme.primary,
                     contentDescription = "Toggle light/dark mode",
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(Dimens.smallIconSize)
                 )
             }
         }
@@ -77,8 +77,8 @@ fun TodosScreen(
             ) {
                 CircularProgressIndicator(
                     modifier = Modifier
-                        .width(64.dp)
-                        .padding(bottom = 40.dp),
+                        .width(Dimens.circularProgressWidth)
+                        .padding(bottom = Dimens.largePadding + innerPadding.calculateBottomPadding()),
                 )
             }
             return@Column
@@ -101,8 +101,8 @@ fun TodosScreen(
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(
-                    start = 16.dp,
-                    end = 16.dp,
+                    start = Dimens.mediumPadding,
+                    end = Dimens.mediumPadding,
                     bottom = innerPadding.calculateBottomPadding()
                 )
             ) {
@@ -113,7 +113,7 @@ fun TodosScreen(
                         Text(
                             stringResource(R.string.tasks_to_do_title),
                             style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.secondary),
-                            modifier = Modifier.padding(vertical = 8.dp)
+                            modifier = Modifier.padding(vertical = Dimens.smallPadding)
                         )
                     }
 
@@ -133,8 +133,8 @@ fun TodosScreen(
                             style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.tertiary),
                             modifier = Modifier
                                 .padding(
-                                    top = if (incompleteTodos.isNotEmpty()) 16.dp else 8.dp,
-                                    bottom = 8.dp
+                                    top = if (incompleteTodos.isNotEmpty()) Dimens.mediumPadding else Dimens.smallPadding,
+                                    bottom = Dimens.smallPadding
                                 )
                         )
                     }
