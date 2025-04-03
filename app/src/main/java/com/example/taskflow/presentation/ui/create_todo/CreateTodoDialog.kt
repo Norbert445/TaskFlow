@@ -46,7 +46,7 @@ fun CreateTodoDialog(
             }, modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = Dimens.mediumPadding),
-            enabled = todoTitle.value.isNotEmpty()
+            enabled = todoTitle.value.isNotBlank()
         ) {
             Text(stringResource(R.string.task_add_title))
         }
