@@ -8,6 +8,7 @@ import com.example.taskflow.domain.usecase.todo.DeleteTodoUseCase
 import com.example.taskflow.domain.usecase.todo.GetTodosUseCase
 import com.example.taskflow.domain.usecase.todo.ToggleTodoUseCase
 import kotlinx.coroutines.launch
+import timber.log.Timber.Forest.d
 
 class TodoViewModel(
     getTodosUseCase: GetTodosUseCase,
@@ -26,6 +27,8 @@ class TodoViewModel(
             getTodosUseCase().collect {
                 todos.value = it
                 isLoading.value = false
+
+                d("Got todos: $it")
             }
         }
     }
@@ -33,12 +36,16 @@ class TodoViewModel(
     fun deleteTodo(todo: Todo) {
         viewModelScope.launch {
             deleteTodoUseCase(todo)
+
+            d("Deleted todo: $todo")
         }
     }
 
     fun toggleTodo(todo: Todo, isDone: Boolean) {
         viewModelScope.launch {
             toggleTodoUseCase(todo, isDone)
+
+            d("Toggled todo: $todo to isDone: $isDone")
         }
     }
 }

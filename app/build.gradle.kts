@@ -42,7 +42,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -61,6 +60,7 @@ dependencies {
     implementation(libs.koin.compose)
     implementation(libs.androidx.datastore)
     implementation(libs.core.splashscreen)
+    implementation(libs.timber)
     implementation(libs.androidx.viewmodel.testing)
     testImplementation(libs.junit)
     testImplementation(libs.coroutines.test)

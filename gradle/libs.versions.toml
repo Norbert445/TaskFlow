@@ -16,7 +16,8 @@ ksp = "2.0.21-1.0.27"
 datastores = "1.1.4"
 viewmodel-testing = "2.9.0-alpha13"
 coroutines-test = "1.10.1"
-core-splashscreen="1.0.1"
+core-splashscreen = "1.0.1"
+timber = "5.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,7 +45,8 @@ koin-compose = { module = "io.insert-koin:koin-androidx-compose" }
 androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastores" }
 androidx-viewmodel-testing = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-testing", version.ref = "viewmodel-testing" }
 coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines-test" }
-core-splashscreen={group= "androidx.core",name="core-splashscreen",version.ref="core-splashscreen"}
+core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "core-splashscreen" }
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
