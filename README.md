@@ -31,6 +31,11 @@ TaskFlow is a to-do list app that allows users to add, update, delete, and mark 
 1. **Open Android Studio** and go to **File > New > Project from Version Control**.
 2. **Enter the repository URL**: `https://github.com/Norbert445/TaskFlow.git`.
 3. Click **Clone** and wait for the project to sync.
+   
+---
+
+## Apk
+You can install the apk from here: https://github.com/Norbert445/TaskFlow/releases/tag/1.0
 
 ---
 
