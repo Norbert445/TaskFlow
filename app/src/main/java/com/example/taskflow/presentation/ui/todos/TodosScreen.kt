@@ -108,7 +108,7 @@ fun TodosScreen(
                 modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(
                     start = Dimens.mediumPadding,
                     end = Dimens.mediumPadding,
-                    bottom = innerPadding.calculateBottomPadding()
+                    bottom = innerPadding.calculateBottomPadding() + Dimens.hugePadding
                 )
             ) {
                 val (incompleteTodos, completedTodos) = todos.partition { !it.isDone }
