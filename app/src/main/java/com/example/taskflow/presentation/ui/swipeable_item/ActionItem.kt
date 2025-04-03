@@ -21,9 +21,9 @@ fun ActionItem(
     backgroundColor: Color,
     icon: ImageVector,
     text: String,
-    modifier: Modifier,
     tint: Color = MaterialTheme.colorScheme.background,
-    contentDescription: String
+    contentDescription: String,
+    modifier: Modifier
 ) {
     Row(
         modifier = modifier

@@ -10,16 +10,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import com.example.taskflow.presentation.ui.create_todo.CreateTodoDialog
+import com.example.taskflow.presentation.ui.create_todo.CreateTodoViewModel
 import com.example.taskflow.presentation.ui.theme.TaskFlowTheme
+import com.example.taskflow.presentation.ui.todos.TodoViewModel
 import com.example.taskflow.presentation.ui.todos.TodosScreen
 import kotlinx.serialization.Serializable
+import org.koin.androidx.compose.koinViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
@@ -34,7 +36,6 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
 
                 Scaffold(
-                    contentColor = MaterialTheme.colorScheme.surfaceContainer,
                     contentWindowInsets = WindowInsets.safeDrawing,
                     floatingActionButton = {
                         FloatingActionButton(
@@ -44,18 +45,35 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Icon(Icons.Filled.Add, "Floating action button for adding Todo.")
                         }
-                    }
-                ) { innerPadding ->
+                    }) { innerPadding ->
                     NavHost(
-                        navController = navController,
-                        startDestination = Todos
+                        navController = navController, startDestination = Todos
                     ) {
                         composable<Todos> {
-                            TodosScreen(innerPadding = innerPadding, onDarkModeToggle = {
-                                themeViewModel.toggleDarkMode()
-                            }, darkModeEnabled = themeViewModel.darkModeEnabled)
+                            val todoViewModel: TodoViewModel = koinViewModel()
+
+                            TodosScreen(
+                                innerPadding = innerPadding,
+                                todos = todoViewModel.todos.value,
+                                isLoading = todoViewModel.isLoading.value,
+                                darkModeEnabled = themeViewModel.darkModeEnabled.value,
+                                onToggleTodo = { todo, isDone ->
+                                    todoViewModel.toggleTodo(todo, isDone)
+                                },
+                                onDeleteTodo = { todo ->
+                                    todoViewModel.deleteTodo(todo)
+                                },
+                                onDarkModeToggle = {
+                                    themeViewModel.toggleDarkMode()
+                                })
                         }
-                        dialog<CreateTodo> { CreateTodoDialog() }
+                        dialog<CreateTodo> {
+                            val createTodoViewModel: CreateTodoViewModel = koinViewModel()
+
+                            CreateTodoDialog(createTodoViewModel.todoTitle, onAddTodo = {
+                                createTodoViewModel.addTodo()
+                            })
+                        }
                     }
                 }
             }

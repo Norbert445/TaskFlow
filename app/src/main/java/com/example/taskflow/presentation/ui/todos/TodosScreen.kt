@@ -1,6 +1,7 @@
 package com.example.taskflow.presentation.ui.todos
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,26 +20,28 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.example.taskflow.R
+import com.example.taskflow.domain.model.Todo
 import com.example.taskflow.presentation.ui.theme.Dimens
-import org.koin.androidx.compose.koinViewModel
+import com.example.taskflow.presentation.ui.theme.TaskFlowTheme
 
 
 @Composable
 fun TodosScreen(
     innerPadding: PaddingValues = PaddingValues(),
-    todoViewModel: TodoViewModel = koinViewModel(),
+    todos: List<Todo>,
+    isLoading: Boolean,
+    darkModeEnabled: Boolean,
+    onToggleTodo: (todo: Todo, isDone: Boolean) -> Unit,
+    onDeleteTodo: (todo: Todo) -> Unit,
     onDarkModeToggle: () -> Unit,
-    darkModeEnabled: State<Boolean>
 ) {
-    val todos = todoViewModel.todos
-
-    Column {
+    Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -60,7 +63,7 @@ fun TodosScreen(
                 onDarkModeToggle()
             }) {
                 Icon(
-                    painter = if (darkModeEnabled.value) painterResource(R.drawable.ic_light_mode) else painterResource(
+                    painter = if (darkModeEnabled) painterResource(R.drawable.ic_light_mode) else painterResource(
                         R.drawable.ic_dark_mode
                     ),
                     tint = MaterialTheme.colorScheme.primary,
@@ -70,10 +73,9 @@ fun TodosScreen(
             }
         }
 
-        if (todoViewModel.isLoading.value) {
+        if (isLoading) {
             Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+                modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator(
                     modifier = Modifier
@@ -84,10 +86,9 @@ fun TodosScreen(
             return@Column
         }
 
-        if (todos.value.isEmpty()) {
+        if (todos.isEmpty()) {
             Column(
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -99,14 +100,13 @@ fun TodosScreen(
             }
         } else {
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(
+                modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(
                     start = Dimens.mediumPadding,
                     end = Dimens.mediumPadding,
                     bottom = innerPadding.calculateBottomPadding()
                 )
             ) {
-                val (incompleteTodos, completedTodos) = todos.value.partition { !it.isDone }
+                val (incompleteTodos, completedTodos) = todos.partition { !it.isDone }
 
                 if (incompleteTodos.isNotEmpty()) {
                     item {
@@ -119,9 +119,9 @@ fun TodosScreen(
 
                     items(incompleteTodos, key = { it.id }) {
                         TodoItem(it, onDelete = {
-                            todoViewModel.deleteTodo(it)
+                            onDeleteTodo(it)
                         }, onToggle = { todo, isDone ->
-                            todoViewModel.toggleTodo(todo, isDone)
+                            onToggleTodo(todo, isDone)
                         }, modifier = Modifier.animateItem())
                     }
                 }
@@ -131,23 +131,40 @@ fun TodosScreen(
                         Text(
                             stringResource(R.string.tasks_completed_title),
                             style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.tertiary),
-                            modifier = Modifier
-                                .padding(
-                                    top = if (incompleteTodos.isNotEmpty()) Dimens.mediumPadding else Dimens.smallPadding,
-                                    bottom = Dimens.smallPadding
-                                )
+                            modifier = Modifier.padding(
+                                top = if (incompleteTodos.isNotEmpty()) Dimens.mediumPadding else Dimens.smallPadding,
+                                bottom = Dimens.smallPadding
+                            )
                         )
                     }
 
                     items(completedTodos, key = { it.id }) {
                         TodoItem(it, onDelete = {
-                            todoViewModel.deleteTodo(it)
+                            onDeleteTodo(it)
                         }, onToggle = { todo, isDone ->
-                            todoViewModel.toggleTodo(todo, isDone)
+                            onToggleTodo(todo, isDone)
                         }, modifier = Modifier.animateItem())
                     }
                 }
             }
         }
+    }
+}
+
+@Composable
+@PreviewLightDark
+fun TodosScreenPreview() {
+    TaskFlowTheme {
+        TodosScreen(
+            PaddingValues(),
+            listOf(
+                Todo(id = 1, title = "Walk the dog"),
+                Todo(id = 2, title = "Go to the gym", isDone = true)
+            ),
+            false,
+            false,
+            { _, _ -> },
+            {},
+            {})
     }
 }

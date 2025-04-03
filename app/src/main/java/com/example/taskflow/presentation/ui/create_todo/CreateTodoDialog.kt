@@ -10,17 +10,22 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.example.taskflow.R
 import com.example.taskflow.presentation.ui.theme.Dimens
-import org.koin.androidx.compose.koinViewModel
+import com.example.taskflow.presentation.ui.theme.TaskFlowTheme
 
 @Composable
-fun CreateTodoDialog(createTodoViewModel: CreateTodoViewModel = koinViewModel()) {
-    val todoTitle = createTodoViewModel.todoTitle
-
+fun CreateTodoDialog(
+    todoTitle: MutableState<String>,
+    onAddTodo: () -> Unit
+) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -37,7 +42,7 @@ fun CreateTodoDialog(createTodoViewModel: CreateTodoViewModel = koinViewModel())
 
         Button(
             onClick = {
-                createTodoViewModel.addTodo()
+                onAddTodo()
             }, modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = Dimens.mediumPadding),
@@ -45,5 +50,13 @@ fun CreateTodoDialog(createTodoViewModel: CreateTodoViewModel = koinViewModel())
         ) {
             Text(stringResource(R.string.task_add_title))
         }
+    }
+}
+
+@Composable
+@PreviewLightDark
+fun CreateTodoDialogPreview() {
+    TaskFlowTheme {
+        CreateTodoDialog(remember { mutableStateOf("Walk the dog") }) {}
     }
 }
